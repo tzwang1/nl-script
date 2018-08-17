@@ -2,6 +2,7 @@ import os
 import zipfile
 import glob
 import shutil
+from pathlib import Path
 
 '''
 Script that downloads NL zips from RTC, and reorganizes them into the new structure.
@@ -11,6 +12,7 @@ Script that downloads NL zips from RTC, and reorganizes them into the new struct
 NL_templates = "---NL_Templates"
 NL_migration = "NL_Migration"
 new_NL_migration = "New_" + NL_migration
+TEMP_DIR = os.path.join(str(Path.home()), 'temp')
 
 def delete_recreate_component_dir(component_path):
     '''
@@ -52,7 +54,7 @@ if __name__ == "__main__":
                 if zipfile.is_zipfile(package_file_path):
                     package_folder = package_file.rstrip('.zip')
                     package_zip = zipfile.ZipFile(package_file_path)
-                    package_zip.extractall(path=os.path.join(new_component_path, package_folder))
+                    package_zip.extractall(path=os.path.join(TEMP_DIR,component, package_folder))
                     # TODO: initialize new component folder in new_NL_migration folder
                     # initialize_new_component_folder()
                     # TODO: Copy properties files
